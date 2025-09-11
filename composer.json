@@ -1,0 +1,20 @@
+{
+	"name": "wrd/wp-navigate",
+	"description": "Utilities for working with navigation, menu items & breadcrumbs in WordPress.",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "wrd-sodapixel",
+			"email": "dev@sodapixel.com"
+		}
+	],
+	"autoload": {
+		"files": [
+			"src/class-menuitem.php",
+			"src/breadcrumbs.php"
+		]
+	},
+	"minimum-stability": "dev",
+	"require": {}
+}

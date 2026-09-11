@@ -135,11 +135,11 @@ function get_the_table_of_contents( WP_Post|int|null $post = null, array $opts =
 		$opts,
 		array(
 			'title'       => __( 'On this Page', 'ecs' ),
-			'wrap_class'  => 'primitive-sidebar component-contents',
-			'title_class' => 'component-contents__title',
-			'list_class'  => 'component-contents__list',
-			'item_class'  => 'component-contents__item',
-			'link_class'  => 'component-contents__link',
+			'wrap_class'  => 'table-of-contents',
+			'title_class' => 'table-of-contents__title',
+			'list_class'  => 'table-of-contents__list',
+			'item_class'  => 'table-of-contents__item',
+			'link_class'  => 'table-of-contents__link',
 			'max_depth'   => 3,
 		)
 	);

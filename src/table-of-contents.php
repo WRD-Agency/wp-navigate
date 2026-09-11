@@ -134,13 +134,14 @@ function get_the_table_of_contents( WP_Post|int|null $post = null, array $opts =
 	$opts = wp_parse_args(
 		$opts,
 		array(
-			'title'       => __( 'On this Page', 'ecs' ),
-			'wrap_class'  => 'table-of-contents',
-			'title_class' => 'table-of-contents__title',
-			'list_class'  => 'table-of-contents__list',
-			'item_class'  => 'table-of-contents__item',
-			'link_class'  => 'table-of-contents__link',
-			'max_depth'   => 3,
+			'title'        => __( 'On this Page', 'ecs' ),
+			'wrap_class'   => 'table-of-contents',
+			'title_class'  => 'table-of-contents__title',
+			'list_class'   => 'table-of-contents__list',
+			'item_class'   => 'table-of-contents__item',
+			'link_class'   => 'table-of-contents__link',
+			'max_depth'    => 3,
+			'default_open' => true,
 		)
 	);
 
@@ -161,7 +162,7 @@ function get_the_table_of_contents( WP_Post|int|null $post = null, array $opts =
 	}
 
 	$title  = $opts['title'] ? sprintf( '<summary class="%s">%s</summary>', esc_attr( $opts['title_class'] ), esc_html( $opts['title'] ) ) : '';
-	$output = sprintf( '<details class="%s" open>%s<ol class="%s">', esc_attr( $opts['wrap_class'] ), $title, esc_attr( $opts['list_class'] ) ) . $output . '</ol></details>';
+	$output = sprintf( '<details class="%s" %s>%s<ol class="%s">', esc_attr( $opts['wrap_class'] ), $opts['default_open'] ? 'open' : '', $title, esc_attr( $opts['list_class'] ) ) . $output . '</ol></details>';
 
 	return $output;
 }

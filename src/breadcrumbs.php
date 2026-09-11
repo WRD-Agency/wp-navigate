@@ -16,9 +16,11 @@ function get_the_breadcrumbs(): array {
 	if ( is_singular() ) {
 		if ( ! is_front_page() ) {
 			$crumbs[] = array(
-				'type'  => 'singular',
-				'url'   => get_the_permalink(),
-				'label' => get_the_title(),
+				'type'    => 'singular',
+				'url'     => get_the_permalink(),
+				'label'   => get_the_title(),
+				'current' => true,
+				'class'   => 'breadcrumbs__item--current',
 			);
 		}
 
@@ -33,8 +35,7 @@ function get_the_breadcrumbs(): array {
 				);
 			}
 		}
-	} else {
-		if ( is_tax() || is_category() || is_tag() ) {
+	} elseif ( is_tax() || is_category() || is_tag() ) {
 			$queried = get_queried_object();
 
 			$crumbs[] = array(
@@ -42,7 +43,6 @@ function get_the_breadcrumbs(): array {
 				'url'   => get_term_link( $queried ),
 				'label' => $queried->name,
 			);
-		}
 	}
 
 	if ( get_post_type() === 'post' ) {
@@ -142,7 +142,7 @@ function trim_breadcrumb( $label ): string {
 /**
  * Displays a breadcrumb item.
  *
- * @param array $crumb The crumb. Array containing 'url' and 'label' items.
+ * @param array $crumb The crumb. Array containing 'type', 'url', 'current' and 'label' items.
  *
  * @param bool  $with_separator True to show separator, false to not.
  */
@@ -152,16 +152,18 @@ function the_breadcrumb_item( $crumb, $with_separator ): void {
 	$default_separator_icon = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m517.85-480-184-184L376-706.15 602.15-480 376-253.85 333.85-296l184-184Z"/></svg>';
 	$separator_icon         = apply_filters( 'wrd\wp_navigate\the_breadcrumb_item\separator_icon', $default_separator_icon, $crumb );
 
+	$is_current = array_key_exists( 'current', $crumb ) && $crumb['current'];
+
 	?>
 
-	<li class="breadcrumbs__item">
+	<li class="breadcrumbs__item breadcrumbs__item--<?php echo esc_attr( $crumb['type'] ); ?>">
 		<?php if ( $with_separator ) : ?>
 			<div class="breadcrumbs__separator" aria-hidden="false">
 				<?php echo $separator_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted ?>
 			</div>
 		<?php endif; ?>
 
-		<a class="breadcrumbs__link" href="<?php echo esc_url( $crumb['url'] ); ?>">
+		<a class="breadcrumbs__link" href="<?php echo esc_url( $crumb['url'] ); ?>" aria-current="<?php echo esc_attr( $is_current ? 'true' : 'false' ); ?>">
 			<?php echo esc_html( $label ); ?>
 		</a>
 	</li>

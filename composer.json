@@ -12,7 +12,9 @@
 	"autoload": {
 		"files": [
 			"src/class-menuitem.php",
-			"src/breadcrumbs.php"
+			"src/breadcrumbs.php",
+			"src/menu.php",
+			"src/table-of-contents.php"
 		]
 	},
 	"minimum-stability": "dev",
